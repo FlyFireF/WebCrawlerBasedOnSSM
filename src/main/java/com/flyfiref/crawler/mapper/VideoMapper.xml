@@ -2,17 +2,23 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.flyfiref.X.mapper.XMapper">
-    <select id="" resultType="">
-        
-    </select>
-    <update id="">
-        
-    </update>
-    <delete id="">
-        
-    </delete>
-    <insert id="">
-        
+<mapper namespace="com.flyfiref.crawler.mapper.VideoMapper">
+    <!--插入视频记录-->
+    <insert id="insert">
+        insert into t_video values
+        (#{bvid},#{title},#{uploader},#{rcmd_reason},#{description},#{v_view},#{danmaku},#{reply},#{v_like},#{coin},#{fav},#{share})
     </insert>
+    <!--根据分页信息查询视频-->
+    <select id="selectVideosWithCondition" resultType="Video">
+        select * from t_video
+        order by bvid desc limit #{beginNo},#{pageSize}
+    </select>
+    <!--统计视频总数-->
+    <select id="count">
+        select count(1) from t_video
+    </select>
+    <!--根据id查询视频-->
+    <select id="selectVideoByBvid" resultType="Video">
+        select * from t_video where bvid=#{bvid}
+    </select>
 </mapper>

@@ -1,68 +1,32 @@
+/*美化表格的CSS*/
 td{
-    /*border: magenta 1px solid;*/
     border: blue 1px solid;
 }
 thead{
     text-align: center;
-    cursor: pointer;
     background-color: lightskyblue;
-    /*background-color: plum;*/
 }
 thead>tr>td{
     padding: 10px;
     transition: color 0.3s ease; /* 添加过渡效果 */
 }
 thead>tr>td:hover{
-    /*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de; !* 发光效果 *!*/
     color:blue;
-    /*color:magenta;*/
 }
 table{
     color:mediumblue;
-    /*color:purple;*/
-}
-progress{
-    -webkit-appearance: none;
-    appearance: none;
-    margin-left: 5px;
-    margin-right: 5px;
-    width: 250px;
-    height: 20px;
-    border: mediumblue 2px solid;
-    /*border: purple 2px solid;*/
-}
-progress::-webkit-progress-bar {
-    background-color: rgba(0,0,0,0);
-}
-progress::-webkit-progress-value{
-    background: linear-gradient(to right, darkblue, blue);
-    /*background: linear-gradient(to right, purple, deeppink);*/
 }
 .pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
-    /*background-color: plum;*/
-    /*border-color: plum;*/
     background-color: lightskyblue;
     border-color: lightskyblue;
 }
 .pagination>li>a, .pagination>li>span {
     color: blue;
-    /*color: magenta;*/
 }
 .pagination>li>a:hover, .pagination>li>span:hover, .pagination>li>a:focus, .pagination>li>span:focus {
     color: lightskyblue;
-    /*color: plum;*/
-}
-body{
-    background-image: url("../img/1.jpg");
-}
-.active{
-    opacity: 0.8;
-}
-#demo_pag1{
-    opacity: 0.9;
 }
 #rows_info_demo_pag1{
     font-size: 18px;
     color:blue;
-    /*color:magenta;*/
 }

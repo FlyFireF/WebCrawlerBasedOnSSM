@@ -1,6 +1,7 @@
-package util;
+package com.flyfiref.crawler.util;
 
 import java.io.IOException;
+import org.apache.http.client.methods.HttpGet;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,6 @@ import org.apache.http.client.config.AuthSchemes;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClients;
@@ -33,6 +33,7 @@ public abstract class HTTPUtils {
 		HttpClient httpClient = HttpClients.custom().build(); 
 		//获取响应文件，即html，采用get方法获取响应数据
 		HttpGet getMethod = new HttpGet(personalUrl);
+		getMethod.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36");
 		HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1,
 				HttpStatus.SC_OK, "OK");
 		try {
@@ -60,8 +61,8 @@ public abstract class HTTPUtils {
 	/**
 	 * 表头提交数据
 	 * 
-	 * @param url
-	 * @param params
+	 * @param URL
+	 * @param nameValuePairList
 	 * @return  
 	 * @throws UnsupportedEncodingException 
 	 * */
@@ -86,6 +87,7 @@ public abstract class HTTPUtils {
 		httpost.setHeader("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8");
 		httpost.setHeader("Cache-Control", "max-age=0");
 		httpost.setHeader("User-Agent", builder.userAgentList.get(new Random().nextInt(builder.userAgentSize)) );
+		httpost.setHeader("Cookie","buvid3=BBAF5CA3-E6C1-FE3E-EB5E-7E7D81519EC600411infoc; b_nut=1710341100; _uuid=4952C725-4191-E971-36F9-517331382E7401941infoc; rpdid=|(J~J~Jkk|Ru0J'u~u|JRuuR|; DedeUserID=76705098; DedeUserID__ckMd5=e55b568f86f4f208; enable_web_push=DISABLE; header_theme_version=CLOSE; hit-dyn-v2=1; buvid4=EC00C477-7439-250B-D56F-FF01D18B38DF01552-024012313-fa%2FvZXAH7oFepNcIXhNUKQ%3D%3D; buvid_fp_plain=undefined; FEED_LIVE_VERSION=V_WATCHLATER_PIP_WINDOW3; CURRENT_FNVAL=4048; bp_video_offset_76705098=925239047675183187; CURRENT_QUALITY=64; home_feed_column=5; SESSDATA=aca32993%2C1731164903%2Cba3d2%2A52CjApFDCkYIvigkxA6l_hMsfKk5tY41U0M9lUfRX6uKA_4ovbN_mHfFx5P_7-yiFnIYcSVm5lWnVPQ2xyNVZrSW43VXdqaER4WHFmT1BNY1pFWXpzZWhrTDc4azRGNjhoUVN5Mk1Va0dILW9zeWt5ZW01SUhsdFFvNXNWb2ItWmg4MXhxOUN5TExRIIEC; bili_jct=2a288ff28950e847eb29f35e7ff993cf; sid=6mhyu15l; bili_ticket=eyJhbGciOiJIUzI1NiIsImtpZCI6InMwMyIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU4NzIxMTksImlhdCI6MTcxNTYxMjg1OSwicGx0IjotMX0.ba2tSyES1JtXY9deX8uNMlrwC0cOAUYNd3V6d5oAINI; bili_ticket_expires=1715872059; bp_t_offset_76705098=931436925997285395; PVID=1; b_lsid=443CC84A_18F7C5EF29B; browser_resolution=1828-870; fingerprint=ae7d5492425c6f673a66262a0eb2fe2a; buvid_fp=BBAF5CA3-E6C1-FE3E-EB5E-7E7D81519EC600411infoc");
 		HttpResponse response = null;
 		String res = "";
 		try {  
@@ -110,17 +112,7 @@ public abstract class HTTPUtils {
 	 */
 	static class Builder{
 		//设置userAgent库;读者根据需求添加更多userAgent
-		String[] userAgentStrs = {"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50",
-				"Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50",
-				"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0",
-				"Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; InfoPath.3; rv:11.0) like Gecko",
-				"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",
-				"Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)",
-				"Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)",
-				"Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; SE 2.X MetaSr 1.0; SE 2.X MetaSr 1.0; .NET CLR 2.0.50727; SE 2.X MetaSr 1.0)",
-				"Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; 360SE)",
-				"Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; TencentTraveler 4.0)",
-		"Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.8.131 Version/11.11"};
+		String[] userAgentStrs = {"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",};
 		List<String> userAgentList = Arrays.asList(userAgentStrs);
 		int userAgentSize = userAgentList.size();
 	}

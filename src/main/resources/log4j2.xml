@@ -24,10 +24,10 @@
     </Appenders>
     <Loggers>
 
-         <Logger name="cn.dsscm" level="INFO" additivity="true">
+         <Logger name="cn.dsscm" level="ERROR" additivity="true">
             <AppenderRef ref="running-log" /> </Logger>
 
-        <Root level="INFO">
+        <Root level="ERROR">
             <!-- 这里是输入到文件，很重要-->
             <AppenderRef ref="running-log" />
             <!-- 这里是输入到控制台-->
