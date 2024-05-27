@@ -30,3 +30,6 @@ table{
     font-size: 18px;
     color:blue;
 }
+.active{
+    opacity: 0.8;
+}

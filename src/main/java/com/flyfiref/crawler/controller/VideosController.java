@@ -2,6 +2,7 @@ package com.flyfiref.crawler.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.flyfiref.crawler.main.CrawlWeekly;
 import com.flyfiref.crawler.pojo.Video;
+import com.flyfiref.crawler.service.ReplyService;
 import com.flyfiref.crawler.service.VideoService;
 import com.flyfiref.crawler.util.HTTPUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import java.util.Map;
 public class VideosController {
     @Autowired
     private VideoService videoService;
+    @Autowired
+    private ReplyService replyService;
     /**
      * 获取每周必看总页数，请求api并解析JSON数据
      * @return 总页数
@@ -41,10 +44,19 @@ public class VideosController {
     public @ResponseBody int startCrawl(
             @RequestParam("pages") String pages,
             @RequestParam("isReverse") String isReverse,
-            @RequestParam("allPages") String allPages){
+            @RequestParam("allPages") String allPages,
+            @RequestParam("isAutoCrawlComments") String isAutoCrawlComments,
+            @RequestParam("autoCrawlCommentsPages") String autoCrawlCommentsPages){
         int intPages = Integer.parseInt(pages);
-        int intAllPages = Integer.parseInt(allPages);
-        new Thread(new CrawlWeekly(isReverse,intPages,intAllPages,videoService)).start();
+        int intAllPages = 0;
+        if(!"".equals(allPages)){
+            intAllPages = Integer.parseInt(allPages);
+        }
+        int intAutoCrawlCommentsPages = 0;
+        if(!"".equals(autoCrawlCommentsPages)){
+            intAutoCrawlCommentsPages = Integer.parseInt(autoCrawlCommentsPages);
+        }
+        new Thread(new CrawlWeekly(isReverse,intPages,intAllPages,isAutoCrawlComments,intAutoCrawlCommentsPages,videoService,replyService)).start();
         return 1;
     }
     /**

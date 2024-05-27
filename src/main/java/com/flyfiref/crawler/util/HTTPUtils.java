@@ -33,7 +33,9 @@ public abstract class HTTPUtils {
 		HttpClient httpClient = HttpClients.custom().build(); 
 		//获取响应文件，即html，采用get方法获取响应数据
 		HttpGet getMethod = new HttpGet(personalUrl);
-		getMethod.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36");
+		//随机产生User-Agent
+		getMethod.setHeader("User-Agent",builder.userAgentList.get(new Random().nextInt(builder.userAgentSize)));
+		getMethod.setHeader("Cookie","i-wanna-go-back=-1; buvid4=B55AD30A-B5C7-EE96-9814-E4C022B25B2443760-022012117-IKgYnehUfRYM1Sjdj%2ByQEw%3D%3D; DedeUserID=76705098; DedeUserID__ckMd5=e55b568f86f4f208; buvid_fp_plain=undefined; hit-new-style-dyn=1; LIVE_BUVID=AUTO6216846666312393; i-wanna-go-feeds=2; enable_web_push=DISABLE; blackside_state=0; CURRENT_BLACKGAP=0; header_theme_version=CLOSE; hit-dyn-v2=1; is-2022-channel=1; CURRENT_QUALITY=80; buvid3=BBAF5CA3-E6C1-FE3E-EB5E-7E7D81519EC600411infoc; b_nut=1710341100; _uuid=4952C725-4191-E971-36F9-517331382E7401941infoc; rpdid=|(J~J~Jkk|Ru0J'u~uu|JuJuJ; FEED_LIVE_VERSION=V_WATCHLATER_PIP_WINDOW3; CURRENT_FNVAL=4048; bp_video_offset_76705098=925239047675183187; fingerprint=612b7d1dd4148eefd033b01de1b7effe; buvid_fp=612b7d1dd4148eefd033b01de1b7effe; PVID=2; bp_t_offset_76705098=927153112733450262; home_feed_column=5; browser_resolution=1822-879; bili_ticket=eyJhbGciOiJIUzI1NiIsImtpZCI6InMwMyIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTY4MjE3NjIsImlhdCI6MTcxNjU2MjUwMiwicGx0IjotMX0._c0QCWNOE8sdNA58ZTSBQubgfLlW1bKCtG0EsY_A-0g; bili_ticket_expires=1716821702; b_lsid=7E72A5D1_18FB77C1D75; SESSDATA=9dbe3634%2C1732322460%2Cbc6de%2A52CjCXfW5c4aiDIvZBand69hAUkPB-2n2jWM2gMTvpVyqvEJqfbK9d1fanYFdt_K3SEscSVmJWZGxjZnZ0V2ZrSl9KWG5wYy0xTHpkNDJKUTFGQWMtMnUxLWV1bHA5NWd6eUlDV2N0Z0FMVHJCa2ZERTRPUHB0alYtYVVYdFFVZkpEVmpJczhhS1ZBIIEC; bili_jct=89da6747d7744eb64b86a3df4ef89382; sid=7ozcvbp3");
 		HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1,
 				HttpStatus.SC_OK, "OK");
 		try {
@@ -112,7 +114,19 @@ public abstract class HTTPUtils {
 	 */
 	static class Builder{
 		//设置userAgent库;读者根据需求添加更多userAgent
-		String[] userAgentStrs = {"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",};
+		String[] userAgentStrs = {
+				"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+				"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0",
+				"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+				"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",
+				"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+				"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
+				"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/122.0",
+				"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/123.0",
+				"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/124.0",
+				"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/125.0",
+				"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0",
+		};
 		List<String> userAgentList = Arrays.asList(userAgentStrs);
 		int userAgentSize = userAgentList.size();
 	}

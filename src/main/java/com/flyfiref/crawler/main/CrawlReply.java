@@ -7,6 +7,8 @@ import com.flyfiref.crawler.util.HTTPUtils;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+
 //爬取评论
 public class CrawlReply implements Runnable{
     private ReplyService replyService;//replyService用于调用插入数据库的方法
@@ -22,6 +24,7 @@ public class CrawlReply implements Runnable{
     }
     //根据bvid获取oid
     private String getOid(String bvid){
+        System.out.println("正在爬取视频：" + bvid);
         String r= null;
         try {
             //访问获取oid的api
@@ -31,7 +34,9 @@ public class CrawlReply implements Runnable{
         }
         //获取oid并返回
         JSONObject data = JSONObject.parseObject(r).getJSONObject("data");
-        return data.getString("aid");
+        String oid = data.getString("aid");
+        System.out.println(bvid+"对应的oid是："+oid);
+        return oid;
     }
     //启动的方法
     @Override
@@ -40,7 +45,7 @@ public class CrawlReply implements Runnable{
         int endPage=0;
         //这个循环根据是否到最后一页或指定的页数跳出
         while (true){
-            System.out.println("正在爬取第"+page+"页");
+            System.out.println("正在爬取第"+page+"页评论");
             //获取评论JSON和评论数
             Map<String,Object> data = getData(intPages, oid);
             Integer replyNum = (Integer) data.get("replyNum");
@@ -53,13 +58,14 @@ public class CrawlReply implements Runnable{
             if(page==endPage) break;
             page+=1;
         }
+        System.out.println("爬取评论完成");
     }
     //获取评论JSON和评论数
     public Map<String,Object> getData(int page, String oid){
         String r = null;
         try {
-            //睡一会，防止爬取过于频繁
-            Thread.sleep(2000);
+            //睡一会（2s~3s），防止爬取过于频繁
+            Thread.sleep(new Random().nextInt(1000)+2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -74,6 +80,7 @@ public class CrawlReply implements Runnable{
         Map<String,Object> data = new HashMap<>();
         data.put("replyNum",replyData.getJSONObject("data").getJSONObject("page").getInteger("count"));
         data.put("replies",replyData.getJSONObject("data").getJSONArray("replies"));
+        //System.out.println("成功获取oid为"+oid+"的评论。");
         return data;
     }
     //从评论JSON提取字段

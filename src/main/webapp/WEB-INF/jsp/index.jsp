@@ -22,7 +22,8 @@
         <h1>欢迎来到哔哩哔哩每周必看抓取系统！</h1>
         <button id="get_all_weekly_num">获取每周必看总数</button>每周必看总数: <span id="all_weekly_num"></span><br>
         请输入爬取每周必看的页数：<input type="text" id="page_count" name="page_count"><br>
-        <label for="is_reverse"><input type="checkbox" id="is_reverse" name="is_reverse">倒序爬取（需先获取总数）</label>
+        <label for="is_reverse"><input type="checkbox" id="is_reverse" name="is_reverse">倒序爬取（需先获取总数）</label><br>
+        <label for="is_auto_crawl_comments"><input type="checkbox" id="is_auto_crawl_comments" name="is_auto_crawl_comments">自动爬取<input type="text" id="auto_crawl_comments_pages" name="auto_crawl_comments_pages">页评论</label><br>
         <button id="start_crawl">开爬！</button><br>
         <a href="showVideos">查看爬取结果</a>
     </div>

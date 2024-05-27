@@ -3,6 +3,7 @@ import com.flyfiref.crawler.mapper.VideoMapper;
 import com.flyfiref.crawler.pojo.Video;
 import com.flyfiref.crawler.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,12 @@ public class VideoServiceImpl implements VideoService {
     VideoMapper videoMapper;
     @Override
     public int add(Video v) {
-        return videoMapper.insert(v);
+        //每周必看可能会有重复的视频，如果重复就跳过
+        try{
+            return videoMapper.insert(v);
+        }catch (DuplicateKeyException e){
+            return 0;
+        }
     }
     @Override
     public List<Video> findVideosWithCondition(Map<String, Object> map) {
