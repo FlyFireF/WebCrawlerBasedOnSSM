@@ -21,4 +21,8 @@
     <select id="selectVideoByBvid" resultType="Video">
         select * from t_video where bvid=#{bvid}
     </select>
+    <!--查询所有bvid-->
+    <select id="selectAllBVID" resultType="string">
+        select bvid from t_video
+    </select>
 </mapper>

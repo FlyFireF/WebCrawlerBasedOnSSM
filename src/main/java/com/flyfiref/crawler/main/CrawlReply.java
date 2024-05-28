@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
 //爬取评论
 public class CrawlReply implements Runnable{
     private ReplyService replyService;//replyService用于调用插入数据库的方法
@@ -47,7 +46,7 @@ public class CrawlReply implements Runnable{
         while (true){
             System.out.println("正在爬取第"+page+"页评论");
             //获取评论JSON和评论数
-            Map<String,Object> data = getData(intPages, oid);
+            Map<String,Object> data = getData(page, oid);
             Integer replyNum = (Integer) data.get("replyNum");
             JSONArray replies = (JSONArray)data.get("replies");
             //从评论JSON提取字段

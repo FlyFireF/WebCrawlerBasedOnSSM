@@ -8,4 +8,5 @@ public interface VideoMapper {
     List<Video> selectVideosWithCondition(Map<String,Object> map);
     int count(Map<String,Object> map);
     Video selectVideoByBvid(String bvid);
+    List<String> selectAllBVID();
 }

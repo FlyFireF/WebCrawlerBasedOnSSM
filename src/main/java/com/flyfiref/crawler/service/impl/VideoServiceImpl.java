@@ -33,4 +33,8 @@ public class VideoServiceImpl implements VideoService {
     public Video queryVideoByBvid(String bvid) {
         return videoMapper.selectVideoByBvid(bvid);
     }
+    @Override
+    public List<String> queryAllBVID() {
+        return videoMapper.selectAllBVID();
+    }
 }

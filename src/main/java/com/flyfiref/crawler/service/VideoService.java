@@ -11,4 +11,5 @@ public interface VideoService {
     int count(Map<String,Object> map);
     //根据bvid查询视频详情
     Video queryVideoByBvid(String bvid);
+    List<String> queryAllBVID();
 }

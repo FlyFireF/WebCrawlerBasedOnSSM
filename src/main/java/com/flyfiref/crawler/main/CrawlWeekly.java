@@ -7,7 +7,6 @@ import com.flyfiref.crawler.service.VideoService;
 import com.flyfiref.crawler.util.HTTPUtils;
 import java.io.IOException;
 import java.util.Random;
-
 //爬取每周必看的主程序，实现Runnable接口以开启多线程。
 public class CrawlWeekly implements Runnable{
     private VideoService videoService;//videoService用于调用插入数据库的方法
@@ -46,12 +45,12 @@ public class CrawlWeekly implements Runnable{
     private void crawl(int page){
         System.out.println("正在爬取第"+page+"期每周必看");
         String videoInfo= null;
-        /*try {
-            //睡一会（2s~3s），防止爬取过于频繁
+        try {
+            //睡一会（2s~3s），防止爬取过于频繁（一般爬取每周必看不容易被封，这里就注释了，节省时间）
             Thread.sleep(new Random().nextInt(1000)+2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }*/
+        }
         try {
             //访问api获取JSON信息
             videoInfo = HTTPUtils.getRawHtml("https://api.bilibili.com/x/web-interface/popular/series/one?number="+page);

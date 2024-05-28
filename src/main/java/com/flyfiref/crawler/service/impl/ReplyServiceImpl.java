@@ -3,6 +3,7 @@ import com.flyfiref.crawler.mapper.ReplyMapper;
 import com.flyfiref.crawler.pojo.Reply;
 import com.flyfiref.crawler.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,12 @@ public class ReplyServiceImpl implements ReplyService {
     ReplyMapper replyMapper;
     @Override
     public int add(Reply r) {
-        return replyMapper.insert(r);
+        //跳过重复
+        try{
+            return replyMapper.insert(r);
+        }catch (DuplicateKeyException e){
+            return 0;
+        }
     }
     @Override
     public List<Reply> findRepliesWithCondition(Map<String, Object> map) {
